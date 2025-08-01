@@ -1,6 +1,6 @@
 # Boolean Expression Generator
 
-This project implements a Boolean expression generator and genetic algorithm components using a Lisp-like language. It generates random Boolean expressions, creates populations, and performs uniform crossover operations. The fitness evaluation part is included but commented out for testing purposes.
+This project implements a Boolean expression generator and genetic algorithm components using a metta-like language. It generates random Boolean expressions, creates populations, and performs uniform crossover operations. The fitness evaluation part is included but commented out for testing purposes.
 
 ## Features
 
@@ -11,20 +11,20 @@ This project implements a Boolean expression generator and genetic algorithm com
 
 ## Prerequisites
 
-- A Lisp-like interpreter that supports the syntax used (e.g., `bind!`, `py-atom`, `cons-atom`, etc.).
+- metta 
 - Python integration for random number generation (via `random.random` and `random.randint`).
 
 ## Usage
 
 ### Step 1: Random Number Setup
 The code binds Python's `random` module for generating random numbers:
-```lisp
+```metta
 ! (bind! random (py-atom random))
 ```
 
 ### Step 2: Grammar Setup
 Defines a grammar for Boolean expressions with terminals (`A`, `B`) and operators (`AND`, `OR`, `NOT`):
-```lisp
+```metta
 ! (bind! &grammar (new-space))
 ! (add-atom &grammar (start expr))
 ! (add-atom &grammar (expr (expr opr expr)))
@@ -40,33 +40,33 @@ Defines a grammar for Boolean expressions with terminals (`A`, `B`) and operator
 
 ### Step 3: Generating Expressions
 The `generate_expr` function creates a random Boolean expression up to a specified depth:
-```lisp
+```metta
 ! (generate_expr 3)
 ```
 This might produce expressions like `(A AND (NOT B))` or `((A OR B) AND B)`.
 
 ### Step 4: Generating Populations
 The `generate_population` function creates a list of `n` random expressions:
-```lisp
+```metta
 ! (generate_population 3)
 ```
 This generates a list of three random expressions, each with a depth of 5.
 
 ### Step 5: Uniform Crossover
 The `uniform-crossover` function combines two parent expressions to produce two offspring:
-```lisp
+```metta
 ! (uniform-crossover (generate_expr 3) (generate_expr 3))
 ```
 This performs a crossover operation, swapping elements between the two expressions with a 50% probability for each element.
 
 ### Example Output
 Running `(generate_population 3)` might produce:
-```lisp
+```metta
 ((A AND (NOT B)) (B OR (A AND B)) (NOT (A OR B)))
 ```
 
 Running `(uniform-crossover (generate_expr 3) (generate_expr 3))` might produce two offspring like:
-```lisp
+```metta
 (((A OR B) AND B) (NOT (A AND B)))
 ```
 
@@ -75,7 +75,7 @@ The fitness evaluation code (commented out) evaluates expressions against the ta
 - Inputs: `((A 0) (B 0))`, `((A 0) (B 1))`, `((A 1) (B 0))`, `((A 1) (B 1))`
 - Fitness is the number of inputs where the expression matches the target function.
 To enable, uncomment the fitness-related code and run:
-```lisp
+```metta
 ! (fitness (generate_expr 3))
 ```
 
@@ -91,7 +91,7 @@ To enable, uncomment the fitness-related code and run:
 ## Notes
 
 - The fitness evaluation is commented out to focus on testing expression generation and crossover.
-- The code assumes a Lisp-like environment with Python integration.
+- The code assumes a metta environment with Python integration.
 - Adjust the depth parameter in `generate_expr` or population size in `generate_population` for different complexity levels.
 
 ## Future Improvements
